@@ -1,0 +1,20 @@
+Name:                dotgen
+Version:             0.1
+Synopsis:            A simple interface for building .dot graph files.
+Description:         This package provides a simple interface for building .dot graph files,
+		     for input into the dot and graphviz tools. 
+		     It includes a monadic interface for building graphs.
+Category:            Graphics
+License:             BSD3
+License-file:        LICENSE
+Author:              Andy Gill
+Maintainer:          Andy Gill <andygill@ku.edu>
+Build-Depends:       base
+Exposed-Modules:     Data.Dot
+Stability:	     alpha
+build-type: 	     Simple
+
+-- Trivial (build) test framework
+--Executable:          dotgen-test
+--hs-source-dirs:	     test, .
+--Main-is:             DotTest.hs
