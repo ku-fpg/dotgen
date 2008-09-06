@@ -1,5 +1,5 @@
 Name:                dotgen
-Version:             0.1
+Version:             0.1.1
 Synopsis:            A simple interface for building .dot graph files.
 Description:         This package provides a simple interface for building .dot graph files,
 		     for input into the dot and graphviz tools. 
@@ -15,7 +15,7 @@ Stability:	     alpha
 build-type: 	     Simple
 
 -- Trivial (build) test framework
-Executable:          dotgen-test
-hs-source-dirs:	     test, .
-ghc-options:	     -fhpc
-Main-is:             DotTest.hs
+--Executable:          dotgen-test
+--hs-source-dirs:	     test, .
+--ghc-options:	     -fhpc
+--Main-is:             DotTest.hs
