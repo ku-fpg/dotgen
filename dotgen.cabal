@@ -15,6 +15,7 @@ Stability:	     alpha
 build-type: 	     Simple
 
 -- Trivial (build) test framework
---Executable:          dotgen-test
---hs-source-dirs:	     test, .
---Main-is:             DotTest.hs
+Executable:          dotgen-test
+hs-source-dirs:	     test, .
+ghc-options:	     -fhpc
+Main-is:             DotTest.hs

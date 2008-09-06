@@ -17,6 +17,8 @@ module Data.Dot
 	  -- * Nodes
 	, node
 	, NodeId	-- abstract
+	, userNodeId
+	, userNode
 	  -- * Edges
 	, edge
 	, (.->.)
@@ -32,10 +34,14 @@ module Data.Dot
 
 data DotGraph = DotGraph [GraphElement]
 
-newtype NodeId = NodeId String
+data NodeId = NodeId String
+	    | UserNodeId Int
 
 instance Show NodeId where
   show (NodeId str) = str
+  show (UserNodeId i) 
+	| i < 0     = "u_" ++ show (negate i)
+	| otherwise = "u" ++ show i
 
 data GraphElement = GraphAttribute String String
 		  | GraphNode NodeId        [(String,String)]
@@ -56,13 +62,21 @@ node      :: [(String,String)] -> Dot NodeId
 node attrs = Dot $ \ uq -> let nid = NodeId $ "n" ++ show uq 
 			  in ( [ GraphNode nid attrs ],succ uq,nid)
 
+
+-- | 'userNodeId' allows a user to use their own (Int-based) node id's, without needing to remap them.
+userNodeId :: Int -> NodeId
+userNodeId i = UserNodeId i
+
+-- | 'userNode' takes a NodeId, and adds some attributes to that node. 
+userNode :: NodeId -> [(String,String)] -> Dot ()
+userNode nId attrs = Dot $ \ uq -> ( [GraphNode nId attrs ],uq,())
+
 -- | 'edge' generates an edge between two 'NodeId's, with attributes.
 edge      :: NodeId -> NodeId -> [(String,String)] -> Dot ()
 edge  from to attrs = Dot (\ uq -> ( [ GraphEdge from to attrs ],uq,()))
 
 -- | '.->.' generates an edge between two 'NodeId's.
 (.->.) from to = edge from to []
-
 
 -- | 'scope' groups a subgraph together; in dot these are the subgraphs inside "{" and "}".
 scope     :: Dot a -> Dot a
@@ -94,9 +108,9 @@ attribute :: (String,String) -> Dot ()
 attribute (name,val) = Dot (\ uq -> ( [  GraphAttribute name val ],uq,()))
 
 -- 'showDot' renders a dot graph as a 'String'.
-showDot :: Dot () -> String
+showDot :: Dot a -> String
 showDot (Dot dm) = case dm 0 of
-		    (elems,_,()) -> "digraph G {\n" ++ unlines (map showGraphElement elems) ++ "\n}\n"
+		    (elems,_,_) -> "digraph G {\n" ++ unlines (map showGraphElement elems) ++ "\n}\n"
 
 showGraphElement (GraphAttribute name val) = showAttr (name,val) ++ ";"
 showGraphElement (GraphNode nid attrs)           = show nid ++ showAttrs attrs ++ ";"

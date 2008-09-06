@@ -78,6 +78,14 @@ main = putStrLn $ showDot $ do
 	v <- box "XYZ"
 	v .->. v
 	() <- attribute ("rankdir","LR")
+
+	let n1 = userNodeId 1
+	let n2 = userNodeId (-1)
+
+	() <- n1 `userNode` [ ("shape","box")]
+	n1 .->. n2
 	
+	v'' <- box "XYZ"
+
 	return ()
 
