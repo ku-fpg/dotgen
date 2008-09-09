@@ -1,5 +1,5 @@
 Name:                dotgen
-Version:             0.1.1
+Version:             0.2
 Synopsis:            A simple interface for building .dot graph files.
 Description:         This package provides a simple interface for building .dot graph files,
 		     for input into the dot and graphviz tools. 
@@ -10,7 +10,7 @@ License-file:        LICENSE
 Author:              Andy Gill
 Maintainer:          Andy Gill <andygill@ku.edu>
 Build-Depends:       base
-Exposed-Modules:     Data.Dot
+Exposed-Modules:     Text.Dot
 Stability:	     alpha
 build-type: 	     Simple
 

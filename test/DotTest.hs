@@ -1,6 +1,6 @@
 module Main where
 
-import Data.Dot
+import Text.Dot
 
 data Animation = Start
 

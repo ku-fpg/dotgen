@@ -1,5 +1,5 @@
 -- |
--- Module: Data.Dot
+-- Module: Text.Dot
 -- Copyright: Andy Gill
 -- License: BSD3
 --
@@ -10,7 +10,7 @@
 -- This module provides a simple interface for building .dot graph files, for input into the dot and graphviz tools. 
 -- It includes a monadic interface for building graphs.
 
-module Data.Dot 
+module Text.Dot 
 	( 
 	  -- * Dot
 	  Dot		-- abstract
