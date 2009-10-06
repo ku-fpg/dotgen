@@ -9,6 +9,7 @@ box label = node $ [ ("shape","box"),("style","rounded"),("label",label) ]
 
 diamond label = node $ [("shape","diamond"),("label",label),("fontsize","10")]
 
+
 main = putStrLn $ showDot $ do
 	attribute ("size","40,15")
 	attribute ("rankdir","LR")
@@ -72,7 +73,7 @@ main = putStrLn $ showDot $ do
 		   v2 <- box "World"
 		   v1 .->. v2
 			
-	x .->. m2
+--	x .->. m2
 	-- for hpc
 	() <- same [x,x]
 	v <- box "XYZ"
@@ -87,5 +88,12 @@ main = putStrLn $ showDot $ do
 	
 	v'' <- box "XYZ"
 
+        box "(\n\\n)\"(/\\)"
+
+	netlistGraph (\ a -> [("label","X" ++ show a)])
+	             (\ a -> [succ a `mod` 10,pred a `mod` 10])
+	             [ (n,n) | n <- [0..9]]
+	             
+	
 	return ()
 
