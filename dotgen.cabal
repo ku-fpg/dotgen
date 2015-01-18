@@ -1,5 +1,5 @@
 Name:                dotgen
-Version:             0.4.1
+Version:             0.4.2
 Synopsis:            A simple interface for building .dot graph files.
 Description:         This package provides a simple interface for building .dot graph files,
 		     for input into the dot and graphviz tools. 
