@@ -22,8 +22,8 @@ main = putStrLn $ showDot $ do
         c3 <- box "F"
         same [c1,c2,c3]
 
-        refSpec .->. c1	
-        tarSpec .->. c2	
+        refSpec .->. c1
+        tarSpec .->. c2
         tarSpec .->. c3
 
         m1 <- box "x"
@@ -47,7 +47,7 @@ main = putStrLn $ showDot $ do
                 , diamond "E"
                 , diamond "Eq"
                 ]
-        same ecs	
+        same ecs
 
         m1 .->. (ecs !! 0)
         m1 .->. (ecs !! 1)
