@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 -- |
 -- Module: Text.Dot
 -- Copyright: Andy Gill
@@ -35,7 +37,9 @@ module Text.Dot
         , netlistGraph
         ) where
 
+#if !(MIN_VERSION_base(4,8,0))
 import Control.Applicative
+#endif
 import Control.Monad
 import Data.Char
 import qualified Data.Map as M
@@ -166,7 +170,7 @@ showsDotChar x    = showLitChar x
 netlistGraph :: (Ord a) 
           => (b -> [(String,String)])   -- ^ Attributes for each node
           -> (b -> [a])                 -- ^ Out edges leaving each node
-          -> [(a,b)] 			-- ^ The netlist
+          -> [(a,b)]                    -- ^ The netlist
           -> Dot ()
 netlistGraph attrFn outFn assocs = do
     let nodes = S.fromList $ [ a | (a,_) <- assocs ]
