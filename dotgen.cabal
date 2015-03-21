@@ -2,32 +2,36 @@ Name:                dotgen
 Version:             0.4.2
 Synopsis:            A simple interface for building .dot graph files.
 Description:         This package provides a simple interface for building .dot graph files,
-		     for input into the dot and graphviz tools. 
-		     It includes a monadic interface for building graphs.
+                     for input into the dot and graphviz tools. 
+                     It includes a monadic interface for building graphs.
 Category:            Text
 License:             BSD3
 License-file:        LICENSE
 Author:              Andy Gill
 Maintainer:          Andy Gill <andygill@ku.edu>
-Stability:	     alpha
-build-type: 	     Simple
-Cabal-Version:       >= 1.6
+Stability:           alpha
+build-type:          Simple
+extra-source-files:  CHANGELOG.md, README.md
+Cabal-Version:       >= 1.8
 
 Flag devel
-  Description: Enable full development tree
-  Default:     False
+  Description:         Enable full development tree
+  Default:             False
 
 Library 
-   Build-Depends:       base >=3 && <5, containers
-   Exposed-Modules:     Text.Dot
+  Build-Depends:       base >= 3 && < 5,
+                       containers
+  Exposed-Modules:     Text.Dot
+  ghc-options:         -Wall
 
 -- Trivial (build) test framework
 Executable dotgen-test
-   if flag(devel)
-       buildable: True
-   else
-        buildable: False
-   hs-source-dirs:	     test, .
-   Main-is:             DotTest.hs
-
-
+  if flag(devel)
+    buildable: True
+  else
+    buildable: False
+  build-depends:       base   >= 3 && < 5,
+                       dotgen == 0.4.2
+  hs-source-dirs:      test
+  Main-is:             DotTest.hs
+  ghc-options:         -Wall
