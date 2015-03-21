@@ -4,6 +4,8 @@ Synopsis:            A simple interface for building .dot graph files.
 Description:         This package provides a simple interface for building .dot graph files,
                      for input into the dot and graphviz tools. 
                      It includes a monadic interface for building graphs.
+homepage:            https://github.com/ku-fpg/dotgen
+bug-reports:         https://github.com/ku-fpg/dotgen/issues
 Category:            Text
 License:             BSD3
 License-file:        LICENSE
@@ -13,6 +15,10 @@ Stability:           alpha
 build-type:          Simple
 extra-source-files:  CHANGELOG.md, README.md
 Cabal-Version:       >= 1.8
+
+source-repository head
+  type:                git
+  location:            git://github.com/ku-fpg/dotgen
 
 Flag devel
   Description:         Enable full development tree
