@@ -1,5 +1,3 @@
-{-# LANGUAGE CPP #-}
-
 -- |
 -- Module: Text.Dot
 -- Copyright: Andy Gill
@@ -37,13 +35,14 @@ module Text.Dot
         , netlistGraph
         ) where
 
-#if !(MIN_VERSION_base(4,8,0))
-import Control.Applicative
-#endif
-import Control.Monad
-import Data.Char
+import           Control.Applicative
+import           Control.Monad
+
+import           Data.Char
 import qualified Data.Map as M
 import qualified Data.Set as S
+
+import           Prelude
 
 -- data DotGraph = DotGraph [GraphElement]
 
