@@ -2,7 +2,7 @@ Name:                dotgen
 Version:             0.4.2
 Synopsis:            A simple interface for building .dot graph files.
 Description:         This package provides a simple interface for building .dot graph files,
-                     for input into the dot and graphviz tools. 
+                     for input into the dot and graphviz tools.
                      It includes a monadic interface for building graphs.
 homepage:            https://github.com/ku-fpg/dotgen
 bug-reports:         https://github.com/ku-fpg/dotgen/issues
@@ -14,17 +14,23 @@ Maintainer:          Andy Gill <andygill@ku.edu>
 Stability:           alpha
 build-type:          Simple
 extra-source-files:  CHANGELOG.md, README.md
+tested-with:         GHC == 7.0.4
+                   , GHC == 7.2.2
+                   , GHC == 7.4.2
+                   , GHC == 7.6.3
+                   , GHC == 7.8.4
+                   , GHC == 7.10.3
 Cabal-Version:       >= 1.8
 
 source-repository head
   type:                git
-  location:            git://github.com/ku-fpg/dotgen
+  location:            https://github.com/ku-fpg/dotgen
 
 Flag devel
   Description:         Enable full development tree
   Default:             False
 
-Library 
+Library
   Build-Depends:       base >= 3 && < 5,
                        containers
   Exposed-Modules:     Text.Dot
