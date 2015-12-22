@@ -157,7 +157,10 @@ showAttrs xs = "[" ++ showAttrs' xs ++ "]"
         showAttrs' (a:as) = showAttr a ++ "," ++ showAttrs' as
 
 showAttr :: (String, String) -> String
-showAttr (name,val) = name ++ "=\""   ++ foldr showsDotChar "" val ++ "\""
+-- Enclose HTML-like label strings in <...>
+showAttr (name@"label",val@('<':_)) = name ++ "=<" ++ foldr showsDotChar "" val ++ ">"
+showAttr (name@"label",('\\':val@('<':_))) = showAttr (name,val)
+showAttr (name,val) = name ++ "=\"" ++ foldr showsDotChar "" val ++ "\""
 
 showsDotChar :: Char -> ShowS
 showsDotChar '"'  = ("\\\"" ++)
