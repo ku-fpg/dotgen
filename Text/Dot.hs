@@ -158,7 +158,7 @@ showAttrs xs = "[" ++ showAttrs' xs ++ "]"
 
 showAttr :: (String, String) -> String
 -- Enclose HTML-like label strings in <...>
-showAttr (name@"label",val@('<':_)) = name ++ "=<" ++ foldr showsDotChar "" val ++ ">"
+showAttr (name@"label",val@('<':_)) = name ++ "=<" ++ foldr showLitChar "" val ++ ">"
 showAttr (name@"label",('\\':val@('<':_))) = showAttr (name,val)
 showAttr (name,val) = name ++ "=\"" ++ foldr showsDotChar "" val ++ "\""
 
