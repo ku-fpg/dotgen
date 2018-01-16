@@ -1,5 +1,5 @@
-dist/
-*~
+dist
+dist-*
 cabal-dev
 *.o
 *.hi
@@ -7,7 +7,6 @@ cabal-dev
 *.chs.h
 *.dyn_o
 *.dyn_hi
-.virtualenv
 .hpc
 .hsenv
 .cabal-sandbox/
@@ -15,3 +14,9 @@ cabal.sandbox.config
 *.prof
 *.aux
 *.hp
+*.eventlog
+.stack-work/
+cabal.project.local
+cabal.project.local~
+.HTF/
+.ghc.environment.*
