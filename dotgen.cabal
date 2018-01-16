@@ -46,7 +46,7 @@ Executable dotgen-test
   else
     buildable: False
   build-depends:       base   >= 3 && < 5,
-                       dotgen == 0.4.2
+                       dotgen
   hs-source-dirs:      test
   Main-is:             DotTest.hs
   ghc-options:         -Wall
