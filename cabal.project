@@ -1,1 +1,4 @@
 packages: .
+
+package dotgen
+  flags: +devel
