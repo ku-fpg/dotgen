@@ -152,9 +152,9 @@ showAttrs :: [(String, String)] -> String
 showAttrs [] = ""
 showAttrs xs = "[" ++ showAttrs' xs ++ "]"
     where
-        -- never empty list
         showAttrs' [a]    = showAttr a
         showAttrs' (a:as) = showAttr a ++ "," ++ showAttrs' as
+        showAttrs' []     = error "The list should never be empty"
 
 showAttr :: (String, String) -> String
 showAttr (name,val) = name ++ "=\""   ++ foldr showsDotChar "" val ++ "\""
