@@ -162,7 +162,9 @@ showAttr (name,val) = name ++ "=\""   ++ foldr showsDotChar "" val ++ "\""
 showsDotChar :: Char -> ShowS
 showsDotChar '"'  = ("\\\"" ++)
 showsDotChar '\\' = ("\\\\" ++)
-showsDotChar x    = showLitChar x
+showsDotChar x
+  | isPrint x     = showChar x
+  | otherwise     = showLitChar x
 
 
 -- | 'netlistGraph' generates a simple graph from a netlist.
