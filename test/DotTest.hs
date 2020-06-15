@@ -94,5 +94,7 @@ main = putStrLn $ showDot $ do
                      (\ a -> [succ a `mod` 10,pred a `mod` 10])
                      [ (n,n) | n <- [0..9] :: [Int] ]
                      
+        _ <- box "touché"
+        _ <- box "eight characters: кирилица"
         
         return ()
