@@ -40,6 +40,7 @@ Library
   Build-Depends:       base >= 3 && < 5,
                        containers
   Exposed-Modules:     Text.Dot
+  default-language:    Haskell2010
   ghc-options:         -Wall
 
 -- Trivial (build) test framework
@@ -52,4 +53,5 @@ Executable dotgen-test
                        dotgen
   hs-source-dirs:      test
   Main-is:             DotTest.hs
+  default-language:    Haskell2010
   ghc-options:         -Wall
