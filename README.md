@@ -1,4 +1,4 @@
-# dotgen [![Hackage version](https://img.shields.io/hackage/v/dotgen.svg?style=flat)](http://hackage.haskell.org/package/dotgen) [![Build Status](https://img.shields.io/travis/ku-fpg/dotgen.svg?style=flat)](https://travis-ci.org/ku-fpg/dotgen)
+# dotgen [![Hackage version](https://img.shields.io/hackage/v/dotgen.svg?style=flat)](http://hackage.haskell.org/package/dotgen) [![Build Status](https://github.com/ku-fpg/dotgen/workflows/Haskell-CI/badge.svg)](https://github.com/ku-fpg/dotgen/actions?query=workflow%3AHaskell-CI)
 
 A simple interface for building .dot graph files.
 
