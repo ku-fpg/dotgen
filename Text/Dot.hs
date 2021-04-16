@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 -- |
 -- Module: Text.Dot
 -- Copyright: Andy Gill
@@ -7,11 +9,11 @@
 -- Stability: unstable
 -- Portability: portable
 --
--- This module provides a simple interface for building .dot graph files, for input into the dot and graphviz tools. 
+-- This module provides a simple interface for building .dot graph files, for input into the dot and graphviz tools.
 -- It includes a monadic interface for building graphs.
 
-module Text.Dot 
-        ( 
+module Text.Dot
+        (
           -- * Dot
           Dot           -- abstract
           -- * Nodes
@@ -51,7 +53,7 @@ data NodeId = NodeId String
 
 instance Show NodeId where
   show (NodeId str) = str
-  show (UserNodeId i) 
+  show (UserNodeId i)
         | i < 0     = "u_" ++ show (negate i)
         | otherwise = "u" ++ show i
 
@@ -69,18 +71,20 @@ instance Functor Dot where
   fmap = liftM
 
 instance Applicative Dot where
-  pure  = return
-  (<*>) = ap
+  pure a = Dot $ \ uq -> ([],uq,a)
+  (<*>)  = ap
 
 instance Monad Dot where
+#if !(MIN_VERSION_base(4,11,0))
   return a = Dot $ \ uq -> ([],uq,a)
+#endif
   m >>= k  = Dot $ \ uq -> case unDot m uq of
                            (g1,uq',r) -> case unDot (k r) uq' of
                                            (g2,uq2,r2) -> (g1 ++ g2,uq2,r2)
 
 -- | 'node' takes a list of attributes, generates a new node, and gives a 'NodeId'.
 node      :: [(String,String)] -> Dot NodeId
-node attrs = Dot $ \ uq -> let nid = NodeId $ "n" ++ show uq 
+node attrs = Dot $ \ uq -> let nid = NodeId $ "n" ++ show uq
                           in ( [ GraphNode nid attrs ],succ uq,nid)
 
 
@@ -88,7 +92,7 @@ node attrs = Dot $ \ uq -> let nid = NodeId $ "n" ++ show uq
 userNodeId :: Int -> NodeId
 userNodeId i = UserNodeId i
 
--- | 'userNode' takes a NodeId, and adds some attributes to that node. 
+-- | 'userNode' takes a NodeId, and adds some attributes to that node.
 userNode :: NodeId -> [(String,String)] -> Dot ()
 userNode nId attrs = Dot $ \ uq -> ( [GraphNode nId attrs ],uq,())
 
@@ -111,10 +115,10 @@ scope (Dot fn) = Dot (\ uq -> case fn uq of
 
 -- | 'share' is when a set of nodes share specific attributes. Usually used for layout tweaking.
 share :: [(String,String)] -> [NodeId] -> Dot ()
-share attrs nodeids = Dot $ \ uq -> 
+share attrs nodeids = Dot $ \ uq ->
       ( [ Scope ( [ GraphAttribute name val | (name,val) <- attrs]
                ++ [ GraphNode nodeid [] | nodeid <- nodeids ]
-               ) 
+               )
         ], uq, ())
 
 -- | 'same' provides a combinator for a common pattern; a set of 'NodeId's with the same rank.
@@ -122,10 +126,10 @@ same :: [NodeId] -> Dot ()
 same = share [("rank","same")]
 
 
--- | 'cluster' builds an explicit, internally named subgraph (called cluster). 
+-- | 'cluster' builds an explicit, internally named subgraph (called cluster).
 cluster :: Dot a -> Dot (NodeId,a)
-cluster (Dot fn) = Dot (\ uq -> 
-                let cid = NodeId $ "cluster_" ++ show uq 
+cluster (Dot fn) = Dot (\ uq ->
+                let cid = NodeId $ "cluster_" ++ show uq
                 in case fn (succ uq) of
                     (elems,uq',a) -> ([SubGraph cid elems],uq',(cid,a)))
 
@@ -168,7 +172,7 @@ showsDotChar x
 
 
 -- | 'netlistGraph' generates a simple graph from a netlist.
-netlistGraph :: (Ord a) 
+netlistGraph :: (Ord a)
           => (b -> [(String,String)])   -- ^ Attributes for each node
           -> (b -> [a])                 -- ^ Out edges leaving each node
           -> [(a,b)]                    -- ^ The netlist
@@ -176,7 +180,7 @@ netlistGraph :: (Ord a)
 netlistGraph attrFn outFn assocs = do
     let nodes = S.fromList $ [ a | (a,_) <- assocs ]
     let outs  = S.fromList $ [ o | (_,b) <- assocs
-                                 , o <- outFn b 
+                                 , o <- outFn b
                              ]
     nodeTab <- sequence [ do nd <- node (attrFn b)
                              return (a,nd)
